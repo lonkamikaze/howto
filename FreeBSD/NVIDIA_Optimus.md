@@ -244,28 +244,25 @@ direct rendering: Yes
 
 ### Using Intel HW Acceleration
 
-If for some reason the intel acceleration is desired the following should
-be added to the Xorg configuration:
-
-```xorg.conf
-Section "Files"
-	ModulePath     "/usr/local/lib/xorg/modules/extensions/.xorg"
-	ModulePath     "/usr/local/lib/xorg/modules"
-EndSection
-```
-
-This gives the Xorg libglx module precedence over the NVIDIA provided
-version.
-
-And the NVIDIA libGL needs to be deactivated:
+If for some reason the intel acceleration is desired the NVIDIA libGL
+needs to be deactivated:
 
 ```
 # mv /usr/local/etc/libmap.d/nvidia.conf /usr/local/etc/libmap.d/nvidia.conf_
 #
 ```
 
-After a restart of Xorg 3D applications should work without prefixing
-the optirun command.
+After deactivating the libmap OpenGL applications should work without
+prefixing the optirun command.
+
+Insert the following line into the optirun script, before the `exec`
+line:
+```sh
+export LD_LIBMAP="$(/bin/cat /usr/local/etc/libmap.d/nvidia.conf_)"
+```
+
+This reenables accelerated rendering via the NVIDIA card for commands
+executed via optirun.
 
 Note, keep the NVIDIA screen around even when not intending to use
 Optimus. The NVIDIA hardware draws less power when the driver is active.
