@@ -123,8 +123,7 @@ There are two ways to set this up, creating a second headless Xorg
 instance for the NVIDIA card or hosting it on a second screen within
 the user facing Xorg session.
 
-The first variant has the advantage of using the intel and NVIDIA 3D
-acceleration, but it's a pain to set up. So the single Xorg instance
+The first variant is a pain to set up. So the single Xorg instance
 variant is presented here.
 
 ### Getting a Working `xorg.conf`
