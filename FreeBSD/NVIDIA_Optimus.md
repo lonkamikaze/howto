@@ -14,7 +14,7 @@ The recommended way is to use Optimus via Xorg is to use
 `xrandr --setprovideroutputsource`. This requires using the intel
 device as a `GPUDevice` and sinking the output into it:
 
-``` sh
+```sh
 xrandr --setprovideroutputsource modesetting NVIDIA-0
 ```
 
@@ -23,7 +23,7 @@ is automatically recognised as a GPUDevice. Unfortunately then Xorg
 unloads the driver, because the device doesn't have a dedicated screen:
 
 `/var/log/Xorg.0.log`
-``` xorg.conf
+```xorg.conf
 …
 [154047.885] (**) ServerLayout "layout_nvidia"
 [154047.885] (**) |-->Screen "screen_nvidia" (0)
@@ -54,7 +54,7 @@ Giving it a screen, fails because a device cannot host a screen and
 be a GPUDevice:
 
 `/var/log/Xorg.0.log`
-``` xorg.conf
+```xorg.conf
 …
 [154553.760] (**) ServerLayout "layout_nvidia"
 [154553.760] (**) |-->Screen "screen_nvidia" (0)
@@ -76,7 +76,7 @@ be a GPUDevice:
 Only using the intel device as a dedicated screen host works:
 
 `/var/log/Xorg.0.log`
-``` xorg.conf
+```xorg.conf
 …
 [154677.307] (**) ServerLayout "layout_nvidia"
 [154677.307] (**) |-->Screen "screen_nvidia" (0)
@@ -146,7 +146,7 @@ vgapci0@pci0:1:0:0:     class=0x030000 card=0x65d11558 chip=0x1f1010de rev=0xa1 
 This translates into the following configuration:
 
 `/usr/local/etc/X11/xorg.conf.d/video.conf`
-``` xorg.conf
+```xorg.conf
 Section "ServerLayout"
 	Identifier     "layout_intel"
 	Screen         0 "screen_intel"
@@ -220,7 +220,7 @@ First install the
 Create a small script:
 
 `~/bin/optirun`
-``` sh
+```sh
 #!/bin/sh
 export PATH="/usr/local/VirtualGL/bin:$PATH"
 exec /usr/local/VirtualGL/bin/vglrun -d :0.1 "$@"
@@ -228,7 +228,7 @@ exec /usr/local/VirtualGL/bin/vglrun -d :0.1 "$@"
 
 Make the script executable and test it:
 
-``` sh
+```sh
 # chmod +x ~/bin/optirun
 # optirun glxinfo|grep direct
 direct rendering: Yes
@@ -247,7 +247,7 @@ direct rendering: Yes
 If for some reason the intel acceleration is desired the following should
 be added to the Xorg configuration:
 
-``` xorg.conf
+```xorg.conf
 Section "Files"
 	ModulePath     "/usr/local/lib/xorg/modules/extensions/.xorg"
 	ModulePath     "/usr/local/lib/xorg/modules"
